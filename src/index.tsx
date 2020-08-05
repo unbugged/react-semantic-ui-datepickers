@@ -341,7 +341,7 @@ class SemanticDatepicker extends React.Component<
   };
 
   handleBlur = (event?: React.SyntheticEvent) => {
-    const { format, onBlur } = this.props;
+    const { format, onBlur, onChange } = this.props;
     const { typedValue } = this.state;
 
     onBlur(event);
@@ -368,7 +368,9 @@ class SemanticDatepicker extends React.Component<
       }
     }
 
-    this.setState({ typedValue: null });
+    this.setState({ typedValue: null }, () => {
+      onChange(event, { ...this.props, value: null });
+    });
   };
 
   handleChange = (event: React.SyntheticEvent, { value }) => {
